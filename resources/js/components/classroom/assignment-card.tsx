@@ -1,4 +1,5 @@
 import { CalendarDays, ClipboardList } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import type { StreamItem } from '@/types/classroom';
 
@@ -18,7 +19,7 @@ export function AssignmentCard({ item }: { item: StreamItem }) {
                 </div>
             </CardHeader>
             <CardContent>
-                <h3 className="break-words text-lg font-semibold tracking-tight">{item.title}</h3>
+                <h3 className="break-words text-lg font-semibold tracking-tight"><Link href={`/assignments/${item.id}`} className="rounded hover:text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">{item.title}</Link></h3>
                 {item.instructions && (
                     <details className="mt-3 text-sm">
                         <summary className="w-fit rounded text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">Read instructions</summary>
@@ -29,6 +30,7 @@ export function AssignmentCard({ item }: { item: StreamItem }) {
                     <CalendarDays className="size-4" aria-hidden="true" />
                     {item.due_at ? <span>Due <time dateTime={item.due_at}>{dateFormat.format(new Date(item.due_at))}</time></span> : <span>No due date</span>}
                 </div>
+                <Link href={`/assignments/${item.id}`} className="mt-4 inline-flex min-h-10 items-center rounded text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">Open assignment</Link>
             </CardContent>
         </Card>
     );
