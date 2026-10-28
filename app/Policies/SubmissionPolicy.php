@@ -11,6 +11,35 @@ use App\Models\User;
 
 class SubmissionPolicy
 {
+    public function view(User $user, Submission $submission): bool
+    {
+        if ($user->role === UserRole::Student) {
+            return $submission->user_id === $user->id
+                && (new AssignmentPolicy)->submit($user, $submission->assignment);
+        }
+
+        return $submission->status !== SubmissionStatus::Draft
+            && ($user->role === UserRole::Admin
+                || (new AssignmentPolicy)->review($user, $submission->assignment));
+    }
+
+    public function turnIn(User $user, Submission $submission): bool
+    {
+        return $this->update($user, $submission);
+    }
+
+    public function grade(User $user, Submission $submission): bool
+    {
+        return (new AssignmentPolicy)->review($user, $submission->assignment)
+            && in_array($submission->status, [SubmissionStatus::Submitted, SubmissionStatus::Graded], true);
+    }
+
+    public function returnGrade(User $user, Submission $submission): bool
+    {
+        return (new AssignmentPolicy)->review($user, $submission->assignment)
+            && $submission->status === SubmissionStatus::Graded;
+    }
+
     public function update(User $user, Submission $submission): bool
     {
         return $user->role === UserRole::Student
