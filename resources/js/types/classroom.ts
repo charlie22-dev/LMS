@@ -6,6 +6,7 @@ export interface Classroom {
     teacher: Person;
     students_count: number;
     invite_code: string | null;
+    can_manage: boolean;
 }
 export interface StreamItem {
     id: number;

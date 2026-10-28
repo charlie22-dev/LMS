@@ -26,6 +26,7 @@ class ClassroomStreamController extends Controller
                 'teacher' => $classroom->teacher->only('id', 'name'),
                 'students_count' => $classroom->students_count,
                 'invite_code' => $request->user()->id === $classroom->teacher_id ? $classroom->invite_code : null,
+                'can_manage' => Gate::allows('manage', $classroom),
             ],
             'streamItems' => fn () => $classroom->assignments()
                 ->select(['id', 'classroom_id', 'author_id', 'title', 'instructions', 'points', 'due_at', 'created_at'])
