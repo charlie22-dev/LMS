@@ -1,0 +1,6 @@
+import * as Dialog from '@radix-ui/react-dialog';
+import { ArrowRight, X } from 'lucide-react';
+import type { DashboardData } from '@/data/dashboard';
+export function NewsDialog({ article }: { article: DashboardData['news'] }) {
+    return <Dialog.Root><p className="text-[10px] font-semibold uppercase tracking-wider text-indigo-500">Campus life · 3 min read</p><h3 className="mt-2 text-sm font-semibold">{article.title}</h3><p className="mt-2 text-xs leading-5 text-muted-foreground">{article.description}</p><Dialog.Trigger className="mt-3 inline-flex min-h-9 items-center gap-1.5 text-xs font-semibold text-primary">Read story <ArrowRight className="size-3.5" /></Dialog.Trigger><Dialog.Portal><Dialog.Overlay className="fixed inset-0 z-50 bg-slate-950/40" /><Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl focus:outline-none"><Dialog.Title className="pr-8 text-xl font-semibold">{article.title}</Dialog.Title><Dialog.Description className="mt-4 text-sm leading-7 text-slate-600">{article.body}</Dialog.Description><Dialog.Close aria-label="Close story" className="absolute right-4 top-4 rounded-lg p-2 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-primary"><X className="size-4" /></Dialog.Close></Dialog.Content></Dialog.Portal></Dialog.Root>;
+}
