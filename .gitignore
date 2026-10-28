@@ -13,6 +13,8 @@
 /.zed
 /auth.json
 /node_modules
+/test-results/
+/playwright-report/
 /.npm-cache
 /.continue/skills/
 /data/skills/
