@@ -1,5 +1,7 @@
 For the LMS implementation, setup commands, file map, and verification status, read [the foundation guide](docs/foundation.md). Composer and npm lockfiles record the resolved dependencies for the Laravel 11 application.
 
+Classroom creation, assignment posting, student turn-in, private downloads, and teacher grading/return are documented in [the open-source comparison and workflow guide](docs/open-source-comparison.md).
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">

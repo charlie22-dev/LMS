@@ -2,6 +2,8 @@ import { Head, Link, router, usePage } from '@inertiajs/react';
 import { ArrowLeft, ArrowRight, BookOpen, ClipboardList, Copy, RefreshCw, Users } from 'lucide-react';
 import { useState } from 'react';
 import { AssignmentCard } from '@/components/classroom/assignment-card';
+import { AppLayout } from '@/layouts/app-layout';
+import { CreateAssignmentForm } from '@/components/classroom/create-assignment-form';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useClassroomStream } from '@/hooks/use-classroom-stream';
@@ -48,19 +50,12 @@ export default function Stream({ classroom, streamItems }: Props) {
     }
 
     return (
-        <>
+        <AppLayout title="Class stream" active="courses">
             <Head title={classroom.name} />
             <a href="#main" className="sr-only z-50 rounded bg-white p-3 focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to stream</a>
-            <header className="border-b bg-white">
-                <div className="mx-auto flex min-h-18 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
-                    <Link href="/" className="flex items-center gap-2 rounded text-lg font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4"><BookOpen className="size-6 text-primary" aria-hidden="true" />Classwork</Link>
-                    <span className="hidden text-sm text-muted-foreground sm:block">A little progress, every day.</span>
-                    <Button variant="ghost" asChild><Link href="/">My classrooms<ArrowRight aria-hidden="true" /></Link></Button>
-                </div>
-            </header>
-            <main id="main" className="mx-auto max-w-6xl px-5 py-7 sm:px-8 sm:py-10">
+            <div id="main" className="mx-auto max-w-6xl">
                 <Link href="/" className="mb-5 inline-flex items-center gap-2 rounded text-sm text-muted-foreground hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4"><ArrowLeft className="size-4" aria-hidden="true" />All classrooms</Link>
-                <section aria-label="Classroom overview" className="relative overflow-hidden rounded-2xl bg-[#174b3d] p-7 text-white sm:p-10">
+                <section aria-label="Classroom overview" className="relative overflow-hidden rounded-2xl bg-indigo-700 p-7 text-white sm:p-10">
                     <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-24 size-80 rounded-full border-[44px] border-white/5" />
                     <p className="relative text-xs font-semibold uppercase tracking-[0.18em] text-emerald-100">Your learning space</p>
                     <h1 className="relative mt-5 max-w-3xl break-words text-3xl font-semibold tracking-tight sm:text-4xl">{classroom.name}</h1>
@@ -84,6 +79,7 @@ export default function Stream({ classroom, streamItems }: Props) {
                         </Card>
                     </aside>
                     <section className="min-w-0 space-y-5" aria-label="Assignments" aria-busy={refreshing}>
+                        {classroom.can_manage && <CreateAssignmentForm classroomId={classroom.id} />}
                         {hasUpdates && <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm"><span>There are new updates in your classroom.</span><Button onClick={refresh} disabled={refreshing}>Show updates</Button></div>}
                         {streamItems.data.length > 0 ? streamItems.data.map((item) => <AssignmentCard key={item.id} item={item} />) : (
                             <Card className="px-6 py-16 text-center">
@@ -100,7 +96,7 @@ export default function Stream({ classroom, streamItems }: Props) {
                         )}
                     </section>
                 </div>
-            </main>
-        </>
+            </div>
+        </AppLayout>
     );
 }
