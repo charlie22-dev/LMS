@@ -8,6 +8,7 @@ use App\Models\Assignment;
 use App\Models\Classroom;
 use App\Models\Submission;
 use App\Observers\AssignmentObserver;
+use App\Policies\AssignmentPolicy;
 use App\Policies\ClassroomPolicy;
 use App\Policies\SubmissionPolicy;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -32,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(Classroom::class, ClassroomPolicy::class);
+        Gate::policy(Assignment::class, AssignmentPolicy::class);
         Gate::policy(Submission::class, SubmissionPolicy::class);
         Assignment::observe(AssignmentObserver::class);
         RateLimiter::for('login', fn (Request $request): Limit => Limit::perMinute(5)->by((string) $request->ip()));
