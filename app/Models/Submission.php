@@ -17,7 +17,13 @@ class Submission extends Model
 
     protected function casts(): array
     {
-        return ['status' => SubmissionStatus::class, 'grade' => 'decimal:2', 'graded_at' => 'immutable_datetime'];
+        return [
+            'status' => SubmissionStatus::class,
+            'grade' => 'decimal:2',
+            'graded_at' => 'immutable_datetime',
+            'submitted_at' => 'immutable_datetime',
+            'returned_at' => 'immutable_datetime',
+        ];
     }
 
     public function assignment(): BelongsTo
@@ -28,5 +34,10 @@ class Submission extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function grader(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'graded_by');
     }
 }
