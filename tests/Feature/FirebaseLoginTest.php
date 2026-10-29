@@ -68,6 +68,13 @@ class FirebaseLoginTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_google_sign_in_fails_closed_when_project_is_not_configured(): void
+    {
+        config(['firebase.project_id' => null]);
+        $this->postJson(route('firebase.login'), ['credential' => $this->token()])->assertStatus(503);
+        $this->assertGuest();
+    }
+
     private function token(array $overrides = [], ?string $key = null): string
     {
         return JWT::encode(array_replace([
