@@ -9,3 +9,5 @@ The app retains its Laravel/Inertia monolith and uses the Firebase web SDK with 
 5. Run `php artisan migrate`, `php artisan optimize:clear`, and `npm.cmd run build` (or start `npm.cmd run dev`). Restart any long-running application workers.
 6. Open `/login` on an authorized domain and use **Continue with Google**. A first-time user is created as a student. A teacher/admin must be assigned that role by a trusted administrator.
 
+The frontend API key and app configuration identify the Firebase project; they are not service account secrets. Restrict the key according to Firebase guidance. Use HTTPS in production and keep the session cookie secure.
+
