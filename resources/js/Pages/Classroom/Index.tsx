@@ -1,37 +1,35 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { ArrowRight, BookOpen, LogOut } from 'lucide-react';
-import type { FormEvent } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { CreateClassroomForm } from '@/components/classroom/create-classroom-form';
+import * as Dialog from '@radix-ui/react-dialog';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowRight, BookOpen, Plus, Users, X } from 'lucide-react';
+import { useState, type FormEvent } from 'react';
 import { AppLayout } from '@/layouts/app-layout';
+import { CreateClassroomForm } from '@/components/classroom/create-classroom-form';
+import { Button } from '@/components/ui/button';
+import { MaterialRippleButton } from '@/components/ui/material-ripple';
 import type { CursorPage, Person } from '@/types/classroom';
 
 interface ClassroomSummary { id: number; name: string; section: string | null; teacher: Person }
+const banners = ['#1967d2', '#137333', '#a14219', '#5e35b1', '#006064', '#ad1457'];
+const examples: ClassroomSummary[] = [
+    { id: 1, name: 'Introduction to Design', section: 'Section A · Spring term', teacher: { id: 1, name: 'Jordan Lee' } },
+    { id: 2, name: 'Environmental Science', section: 'Period 2', teacher: { id: 2, name: 'Alex Morgan' } },
+    { id: 3, name: 'World Literature', section: 'Section B', teacher: { id: 3, name: 'Maya Santos' } },
+    { id: 4, name: 'Computer Science', section: 'CS 101', teacher: { id: 4, name: 'Taylor Chen' } },
+];
 
 export default function Index({ classrooms }: { classrooms: CursorPage<ClassroomSummary> }) {
     const { auth } = usePage().props as unknown as { auth: { user: Person & { role: string } } };
     const form = useForm({ invite_code: '' });
-    function join(event: FormEvent) {
-        event.preventDefault();
-        form.post('/classrooms/join');
-    }
-    return (
-        <AppLayout title="My Courses" active="courses">
-            <Head title="My classrooms" />
-            <div>
-                <p className="text-sm text-muted-foreground">Welcome back, {auth.user.name}</p>
-                <h1 className="mt-2 text-3xl font-semibold tracking-tight">My classrooms</h1>
-                {auth.user.role === 'teacher' && <CreateClassroomForm />}
-                {auth.user.role === 'student' && (
-                    <Card className="my-7 max-w-xl"><CardHeader><h2 className="font-semibold">Join a classroom</h2><p className="mt-1 text-sm text-muted-foreground">Enter the seven-character code from your teacher.</p></CardHeader><CardContent><form onSubmit={join} className="flex flex-wrap gap-3"><label className="sr-only" htmlFor="invite-code">Class code</label><input id="invite-code" required minLength={7} maxLength={7} pattern="[A-Za-z0-9]{7}" autoComplete="off" autoCapitalize="characters" spellCheck={false} value={form.data.invite_code} onChange={(e) => form.setData('invite_code', e.target.value.toUpperCase())} aria-invalid={!!form.errors.invite_code} aria-describedby={form.errors.invite_code ? 'code-error' : undefined} className="min-h-10 min-w-0 flex-1 rounded-lg border bg-background px-3 font-mono tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-ring" /><Button disabled={form.processing}>{form.processing ? 'Joining…' : 'Join class'}</Button></form>{form.errors.invite_code && <p id="code-error" role="alert" className="mt-3 text-sm text-red-700">{form.errors.invite_code}</p>}</CardContent></Card>
-                )}
-                <div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                    {classrooms.data.map((classroom) => <Card key={classroom.id}><CardHeader><h2 className="break-words text-lg font-semibold">{classroom.name}</h2>{classroom.section && <p className="mt-1 text-sm text-muted-foreground">{classroom.section}</p>}</CardHeader><CardContent><p className="mb-5 text-sm text-muted-foreground">{classroom.teacher.name}</p><Button variant="outline" asChild><Link href={`/classrooms/${classroom.id}/stream`}>Open classroom<ArrowRight aria-hidden="true" /></Link></Button></CardContent></Card>)}
-                </div>
-                {classrooms.data.length === 0 && <p className="mt-10 text-muted-foreground">Your classrooms will appear here once you’ve joined or been assigned one.</p>}
-                <nav aria-label="Classroom pagination" className="mt-8 flex justify-between gap-4">{classrooms.prev_page_url ? <Button variant="outline" asChild><Link href={classrooms.prev_page_url}>Newer classrooms</Link></Button> : <span />}{classrooms.next_page_url && <Button variant="outline" asChild><Link href={classrooms.next_page_url}>Older classrooms</Link></Button>}</nav>
-            </div>
-        </AppLayout>
-    );
+    const [open, setOpen] = useState(false);
+    const [preview, setPreview] = useState(false);
+    const reduced = useReducedMotion();
+    function join(event: FormEvent) { event.preventDefault(); form.post('/classrooms/join'); }
+    const displayed = preview ? examples : classrooms.data;
+    return <AppLayout title="Classes" active="courses"><Head title="My classrooms" /><div className="mx-auto max-w-[1300px]"><div className="mb-7 flex flex-wrap items-end justify-between gap-3"><div><p className="text-sm text-[#5f6368]">Welcome back, {auth.user.name.split(' ')[0]}</p><h1 className="mt-1 text-[28px] font-normal text-[#202124]">My classrooms</h1></div><button type="button" onClick={() => setPreview(!preview)} className="min-h-12 rounded-full px-4 text-sm font-medium text-[#1a73e8] hover:bg-[#e8f0fe]">{preview ? 'Show my classrooms' : 'Preview class cards'}</button></div>
+        {preview && <p role="status" className="mb-5 rounded-lg bg-[#e8f0fe] p-4 text-sm text-[#1967d2]">Preview: these four classes are examples. Your actual classrooms are unchanged.</p>}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{displayed.map((classroom, index) => <motion.article key={`${preview}-${classroom.id}`} layout={!reduced} initial={false} className="group relative overflow-hidden rounded-lg border border-[#dadce0] bg-white transition-shadow duration-200 hover:shadow-[0_2px_8px_rgba(60,64,67,0.22)]"><div className="relative h-[112px] overflow-hidden px-5 pt-5 text-white" style={{ backgroundColor: banners[index % banners.length] }}><div aria-hidden="true" className="absolute -right-4 -top-12 size-40 rounded-full border-[28px] border-white/10" /><div aria-hidden="true" className="absolute bottom-0 right-10 h-12 w-24 rounded-t-full bg-white/10" />{preview ? <h2 className="relative truncate text-xl font-medium">{classroom.name}</h2> : <h2 className="relative truncate text-xl font-medium"><Link href={`/classrooms/${classroom.id}/stream`} className="rounded underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-white">{classroom.name}</Link></h2>}<p className="relative mt-1 truncate text-sm text-white/80">{classroom.section || 'Classroom'}</p></div><div className="absolute right-5 top-[88px] flex size-12 items-center justify-center rounded-full border-2 border-white bg-[#e8f0fe] text-sm font-medium text-[#1967d2] shadow-sm">{classroom.teacher.name.split(' ').slice(0, 2).map((part) => part[0]).join('').toUpperCase()}</div><div className="min-h-[116px] px-5 pt-7"><p className="text-sm text-[#5f6368]">{classroom.teacher.name}</p><p className="mt-4 text-xs text-[#80868b]">{preview ? 'Example classroom' : 'Classroom stream'}</p></div><div className="flex min-h-14 items-center justify-end border-t border-[#dadce0] px-4">{preview ? <span className="text-xs text-[#80868b]">Preview only</span> : <Link href={`/classrooms/${classroom.id}/stream`} className="inline-flex min-h-12 items-center gap-2 rounded-full px-3 text-sm font-medium text-[#1a73e8] hover:bg-[#e8f0fe]">Open classroom<ArrowRight className="size-4" /></Link>}</div></motion.article>)}</div>
+        {!preview && classrooms.data.length === 0 && <div className="mx-auto max-w-md py-20 text-center"><div className="mx-auto flex size-16 items-center justify-center rounded-full bg-[#e8f0fe] text-[#1a73e8]"><Users className="size-8" /></div><h2 className="mt-5 text-xl text-[#202124]">Your classes will appear here</h2><p className="mt-2 text-sm leading-6 text-[#5f6368]">Use the plus button to {auth.user.role === 'teacher' ? 'create your first class' : 'join a class with a code from your teacher'}.</p></div>}
+        {!preview && <nav aria-label="Classroom pagination" className="mt-8 flex justify-between gap-4">{classrooms.prev_page_url ? <Button variant="outline" asChild><Link href={classrooms.prev_page_url}>Newer classrooms</Link></Button> : <span />}{classrooms.next_page_url && <Button variant="outline" asChild><Link href={classrooms.next_page_url}>Older classrooms</Link></Button>}</nav>}
+    </div><Dialog.Root open={open} onOpenChange={setOpen}><Dialog.Trigger asChild><MaterialRippleButton aria-label={auth.user.role === 'teacher' ? 'Create class' : 'Join class'} className="fixed bottom-[calc(84px+env(safe-area-inset-bottom))] right-5 z-20 flex size-14 items-center justify-center rounded-2xl bg-[#c2e7ff] text-[#001d35] shadow-[0_2px_6px_rgba(60,64,67,0.3)] transition-shadow hover:shadow-[0_4px_12px_rgba(60,64,67,0.3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a73e8] md:bottom-8 md:right-8"><Plus className="size-7" /></MaterialRippleButton></Dialog.Trigger><Dialog.Portal><Dialog.Overlay className="fixed inset-0 z-40 bg-black/40" /><Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-[28px] bg-white p-6 shadow-xl outline-none"><Dialog.Title className="pr-10 text-xl text-[#202124]">{auth.user.role === 'teacher' ? 'Create a class' : 'Join a class'}</Dialog.Title><Dialog.Description className="mt-2 text-sm text-[#5f6368]">{auth.user.role === 'teacher' ? 'Give your class a name and invite your students.' : 'Enter the seven-character code from your teacher.'}</Dialog.Description><Dialog.Close aria-label="Close" className="absolute right-4 top-4 flex size-12 items-center justify-center rounded-full hover:bg-[#f1f3f4]"><X className="size-5" /></Dialog.Close>{auth.user.role === 'teacher' ? <CreateClassroomForm /> : <form onSubmit={join} className="mt-6 space-y-4"><label htmlFor="invite-code" className="block text-sm font-medium">Class code</label><input id="invite-code" required minLength={7} maxLength={7} pattern="[A-Za-z0-9]{7}" autoComplete="off" autoCapitalize="characters" spellCheck={false} value={form.data.invite_code} onChange={(event) => form.setData('invite_code', event.target.value.toUpperCase())} aria-invalid={!!form.errors.invite_code} aria-describedby={form.errors.invite_code ? 'code-error' : undefined} className="min-h-14 w-full rounded border border-[#80868b] px-4 font-mono tracking-widest outline-none focus:border-2 focus:border-[#1a73e8]" />{form.errors.invite_code && <p id="code-error" role="alert" className="text-sm text-red-700">{form.errors.invite_code}</p>}<div className="flex justify-end"><Button disabled={form.processing}>{form.processing ? 'Joining…' : 'Join class'}</Button></div></form>}</Dialog.Content></Dialog.Portal></Dialog.Root></AppLayout>;
 }
