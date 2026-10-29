@@ -58,6 +58,16 @@ class FirebaseLoginTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_invalid_signature_and_unknown_signing_key_are_rejected(): void
+    {
+        $options = $this->opensslOptions();
+        $other = openssl_pkey_new($options);
+        openssl_pkey_export($other, $otherKey, null, $options);
+        $this->postJson(route('firebase.login'), ['credential' => $this->token([], $otherKey)])->assertUnprocessable();
+        $this->postJson(route('firebase.login'), ['credential' => JWT::encode(['sub' => 'x'], $this->privateKey, 'RS256', 'unknown')])->assertUnprocessable();
+        $this->assertGuest();
+    }
+
     private function token(array $overrides = [], ?string $key = null): string
     {
         return JWT::encode(array_replace([
