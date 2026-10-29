@@ -16,13 +16,13 @@
     --foreground: #3c4043;
     --card: #ffffff;
     --card-foreground: #3c4043;
-    --primary: #4f46e5;
+    --primary: #1a73e8;
     --primary-foreground: #ffffff;
-    --muted: #f1f5f9;
-    --muted-foreground: #64748b;
-    --border: #e2e8f0;
-    --input: #cbd5e1;
-    --ring: #4f46e5;
+    --muted: #f1f3f4;
+    --muted-foreground: #5f6368;
+    --border: #dadce0;
+    --input: #dadce0;
+    --ring: #1a73e8;
 }
 
 @theme inline {
