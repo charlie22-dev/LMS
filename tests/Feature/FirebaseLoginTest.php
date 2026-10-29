@@ -41,6 +41,14 @@ class FirebaseLoginTest extends TestCase
         $this->assertNotNull($user->email_verified_at);
     }
 
+    public function test_existing_account_is_never_automatically_linked_by_email(): void
+    {
+        $user = User::factory()->create(['email' => 'learner@example.com', 'role' => UserRole::Teacher]);
+        $this->postJson(route('firebase.login'), ['credential' => $this->token()])->assertUnprocessable()->assertJsonValidationErrors('credential');
+        $this->assertNull($user->fresh()->firebase_uid);
+        $this->assertGuest();
+    }
+
     private function token(array $overrides = [], ?string $key = null): string
     {
         return JWT::encode(array_replace([
