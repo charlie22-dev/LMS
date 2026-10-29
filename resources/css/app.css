@@ -12,10 +12,10 @@
 }
 
 :root {
-    --background: #f8fafc;
-    --foreground: #0f172a;
+    --background: #f8f9fa;
+    --foreground: #3c4043;
     --card: #ffffff;
-    --card-foreground: #0f172a;
+    --card-foreground: #3c4043;
     --primary: #4f46e5;
     --primary-foreground: #ffffff;
     --muted: #f1f5f9;
