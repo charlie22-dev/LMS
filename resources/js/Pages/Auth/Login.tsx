@@ -1,28 +1,22 @@
 import { Head, useForm } from '@inertiajs/react';
-import { BookOpen } from 'lucide-react';
-import type { FormEvent } from 'react';
+import { BookOpen, LoaderCircle } from 'lucide-react';
+import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { useFirebaseAuth } from '@/lib/firebase-auth';
+
+function GoogleMark() {
+    return <svg aria-hidden="true" width="20" height="20" viewBox="0 0 48 48"><path fill="#4285F4" d="M43.6 24.5c0-1.5-.1-3-.4-4.4H24v8.3h11c-.5 2.7-2 5-4.4 6.5v5.4h7.1c4.1-3.8 6-9.4 6-15.8z"/><path fill="#34A853" d="M24 44c5.8 0 10.6-1.9 14.1-5.2L31 33.4c-1.9 1.3-4.3 2-7 2-5.5 0-10.2-3.7-11.9-8.7H4.8v5.6C8.3 39.3 15.6 44 24 44z"/><path fill="#FBBC05" d="M12.1 26.7c-.4-1.3-.7-2.7-.7-4.1s.2-2.8.7-4.1v-5.6H4.8A20 20 0 0 0 2.6 22.6c0 3.5.8 6.9 2.2 9.7z"/><path fill="#EA4335" d="M24 10c3.2 0 6 1.1 8.2 3.2l6.1-6.1C34.6 3.7 29.8 2 24 2 15.6 2 8.3 6.7 4.8 12.9l7.3 5.6C13.8 13.7 18.5 10 24 10z"/></svg>;
+}
 
 export default function Login() {
     const form = useForm({ email: '', password: '' });
-    function submit(event: FormEvent) {
-        event.preventDefault();
-        form.post('/login', { onFinish: () => form.reset('password') });
+    const google = useFirebaseAuth();
+    const [googleError, setGoogleError] = useState('');
+    const [busy, setBusy] = useState(false);
+    function submit(event: FormEvent) { event.preventDefault(); form.post('/login', { onFinish: () => form.reset('password') }); }
+    async function signInWithGoogle() {
+        setBusy(true); setGoogleError('');
+        try { await google.signIn(); } catch (error) { setGoogleError(error instanceof Error && !error.message.startsWith('Firebase:') ? error.message : 'Google sign-in was cancelled or could not be completed. Please try again.'); } finally { setBusy(false); }
     }
-    return (
-        <main className="flex min-h-dvh items-center justify-center p-5">
-            <Head title="Sign in" />
-            <Card className="w-full max-w-md">
-                <CardHeader><BookOpen className="mb-5 size-8 text-primary" aria-hidden="true" /><h1 className="text-2xl font-semibold tracking-tight">Welcome to Classwork</h1><p className="mt-2 text-sm text-muted-foreground">Sign in to your learning space.</p></CardHeader>
-                <CardContent>
-                    <form onSubmit={submit} className="space-y-5">
-                        <div><label className="text-sm font-medium" htmlFor="email">Email</label><input id="email" type="email" autoComplete="username" required autoFocus value={form.data.email} onChange={(e) => form.setData('email', e.target.value)} aria-invalid={!!form.errors.email} aria-describedby={form.errors.email ? 'email-error' : undefined} className="mt-2 block h-11 w-full rounded-lg border bg-background px-3 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring" />{form.errors.email && <p id="email-error" role="alert" className="mt-2 text-sm text-red-700">{form.errors.email}</p>}</div>
-                        <div><label className="text-sm font-medium" htmlFor="password">Password</label><input id="password" type="password" autoComplete="current-password" required value={form.data.password} onChange={(e) => form.setData('password', e.target.value)} className="mt-2 block h-11 w-full rounded-lg border bg-background px-3 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring" />{form.errors.password && <p role="alert" className="mt-2 text-sm text-red-700">{form.errors.password}</p>}</div>
-                        <Button className="w-full" disabled={form.processing}>{form.processing ? 'Signing in…' : 'Sign in'}</Button>
-                    </form>
-                </CardContent>
-            </Card>
-        </main>
-    );
+    return <main className="flex min-h-dvh items-center justify-center bg-[#f8f9fa] p-5"><Head title="Sign in" /><div className="w-full max-w-[450px] rounded-[28px] border border-[#dadce0] bg-white px-7 py-10 shadow-[0_1px_3px_rgba(60,64,67,0.12)] sm:px-12"><div className="flex size-12 items-center justify-center rounded-2xl bg-[#e8f0fe] text-[#1a73e8]"><BookOpen className="size-6" aria-hidden="true" /></div><h1 className="mt-7 text-[28px] font-normal tracking-tight text-[#202124]">Welcome to Classwork</h1><p className="mt-2 text-sm leading-6 text-[#5f6368]">Sign in to continue to your classes.</p><button type="button" onClick={() => void signInWithGoogle()} disabled={!google.available || busy} className="mt-8 flex min-h-12 w-full items-center justify-center gap-3 rounded-full border border-[#dadce0] bg-white px-5 text-sm font-medium text-[#3c4043] transition-colors hover:bg-[#f8f9fa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a73e8] disabled:cursor-not-allowed disabled:opacity-60">{busy ? <LoaderCircle className="size-5 animate-spin" /> : <GoogleMark />} {busy ? 'Connecting…' : 'Continue with Google'}</button>{!google.available && <p className="mt-2 text-xs leading-5 text-[#5f6368]">Google sign-in is not configured. Use your email and password below.</p>}{googleError && <p role="alert" className="mt-3 text-sm text-red-700">{googleError}</p>}<div className="my-7 flex items-center gap-3 text-xs text-[#5f6368]"><span className="h-px flex-1 bg-[#dadce0]" />or continue with email<span className="h-px flex-1 bg-[#dadce0]" /></div><form onSubmit={submit} className="space-y-5"><div className="relative"><input id="email" type="email" autoComplete="username" required value={form.data.email} onChange={(e) => form.setData('email', e.target.value)} aria-invalid={!!form.errors.email} aria-describedby={form.errors.email ? 'email-error' : undefined} placeholder=" " className="peer h-14 w-full rounded border border-[#80868b] bg-white px-4 text-base outline-none focus:border-2 focus:border-[#1a73e8]" /><label htmlFor="email" className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#5f6368] peer-focus:text-[#1a73e8]">Email</label>{form.errors.email && <p id="email-error" role="alert" className="mt-2 text-sm text-red-700">{form.errors.email}</p>}</div><div className="relative"><input id="password" type="password" autoComplete="current-password" required value={form.data.password} onChange={(e) => form.setData('password', e.target.value)} placeholder=" " className="h-14 w-full rounded border border-[#80868b] bg-white px-4 text-base outline-none focus:border-2 focus:border-[#1a73e8]" /><label htmlFor="password" className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#5f6368]">Password</label>{form.errors.password && <p role="alert" className="mt-2 text-sm text-red-700">{form.errors.password}</p>}</div><Button className="w-full" disabled={form.processing}>{form.processing ? 'Signing in…' : 'Sign in'}</Button></form><p className="mt-8 text-center text-xs text-[#80868b]">A shared space for teaching and learning.</p></div></main>;
 }
