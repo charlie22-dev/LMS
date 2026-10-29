@@ -49,6 +49,15 @@ class FirebaseLoginTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_wrong_audience_unverified_email_and_non_google_provider_are_rejected(): void
+    {
+        foreach ([['aud' => 'another-project'], ['email_verified' => false], ['firebase' => ['sign_in_provider' => 'password']], ['exp' => time() - 60]] as $override) {
+            $this->postJson(route('firebase.login'), ['credential' => $this->token($override)])->assertUnprocessable()->assertJsonValidationErrors('credential');
+        }
+        $this->assertDatabaseCount('users', 0);
+        $this->assertGuest();
+    }
+
     private function token(array $overrides = [], ?string $key = null): string
     {
         return JWT::encode(array_replace([
