@@ -16,6 +16,7 @@ test('teacher posts work, student turns it in, and the teacher returns a private
     const student = await studentContext.newPage();
 
     await signIn(teacher, 'teacher@classwork.test');
+    await teacher.getByRole('button', { name: 'Create class', exact: true }).click();
     await teacher.getByText('Create a classroom', { exact: true }).click();
     await teacher.getByLabel('Class name', { exact: true }).fill('Workflow lab');
     await teacher.getByLabel('Section (optional)').fill('Browser verification');
@@ -24,8 +25,9 @@ test('teacher posts work, student turns it in, and the teacher returns a private
     const inviteCode = await teacher.locator('code').innerText();
 
     await signIn(student, 'student@classwork.test');
-    await student.getByLabel('Class code', { exact: true }).fill(inviteCode);
     await student.getByRole('button', { name: 'Join class', exact: true }).click();
+    await student.getByLabel('Class code', { exact: true }).fill(inviteCode);
+    await student.getByRole('dialog').getByRole('button', { name: 'Join class', exact: true }).click();
     await expect(student.getByRole('heading', { name: 'Workflow lab', exact: true })).toBeVisible();
 
     await teacher.getByText('Post an assignment', { exact: true }).click();
