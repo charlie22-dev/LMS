@@ -11,3 +11,8 @@ The app retains its Laravel/Inertia monolith and uses the Firebase web SDK with 
 
 The frontend API key and app configuration identify the Firebase project; they are not service account secrets. Restrict the key according to Firebase guidance. Use HTTPS in production and keep the session cookie secure.
 
+For safety, if an existing email/password account has the same email but is not already linked by Firebase UID, Google sign-in is rejected rather than silently taking over that account. There is no account-linking interface yet. Firebase account disablement or token revocation after login does not automatically revoke an existing Laravel session; central session revocation is future work. The popup requires browser popup support; the user may continue using email/password if it is unavailable.
+
+Tests sign synthetic tokens with a local RSA key and fake Google's certificate endpoint. They verify the valid path and reject wrong audiences, expired tokens, unverified email, non-Google providers, invalid signatures, unknown keys, email collisions, and missing project configuration. A real Google account flow requires project settings and cannot be confirmed with synthetic tokens alone.
+
+References: [Firebase Google sign-in](https://firebase.google.com/docs/auth/web/google-signin), [Firebase token verification requirements](https://firebase.google.com/docs/auth/admin/verify-id-tokens), [Firebase popup and redirect guidance](https://firebase.google.com/docs/auth/web/redirect-best-practices).
