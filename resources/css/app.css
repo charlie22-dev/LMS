@@ -43,5 +43,5 @@
     * { @apply border-border; }
     body { @apply bg-background text-foreground; }
     button:not(:disabled), summary { cursor: pointer; }
-    ::selection { background: #c7d2fe; }
+    ::selection { background: #d2e3fc; }
 }
