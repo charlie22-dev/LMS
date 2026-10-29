@@ -7,19 +7,25 @@ use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ClassroomIndexController;
 use App\Http\Controllers\ClassroomStreamController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\FirebaseSessionController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SubmissionFileController;
 use App\Http\Controllers\SubmissionWorkflowController;
+use App\Http\Controllers\WorkListController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::middleware('guest')->group(function (): void {
     Route::get('/login', [SessionController::class, 'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store'])->middleware('throttle:login');
+    Route::post('/auth/firebase', [FirebaseSessionController::class, 'store'])->middleware('throttle:login')->name('firebase.login');
 });
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
+    Route::get('/calendar', fn (Request $request, WorkListController $controller) => $controller->index($request, 'calendar'))->name('calendar');
+    Route::get('/todo', fn (Request $request, WorkListController $controller) => $controller->index($request, 'todo'))->name('todo');
     Route::get('/portal/{section}', fn (string $section) => Inertia::render('Portal/Section', ['section' => $section]))->whereIn('section', ['profile', 'registration', 'attendance', 'exams', 'library', 'finance'])->name('portal.section');
     Route::get('/', [ClassroomIndexController::class, 'index'])->name('classrooms.index');
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
