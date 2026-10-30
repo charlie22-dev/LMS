@@ -17,7 +17,7 @@ export function StudentWork({ assignmentId, points, submission }: { assignmentId
 
     function saveFile(event: FormEvent) {
         event.preventDefault();
-        if (!submission) return;
+        if (!submission || upload.processing) return;
         upload.post(`/submissions/${submission.id}/file`, {
             preserveScroll: true,
             onSuccess: () => { upload.reset(); setInputKey((key) => key + 1); },
@@ -31,24 +31,24 @@ export function StudentWork({ assignmentId, points, submission }: { assignmentId
             </CardHeader>
             <CardContent className="space-y-5">
                 {!submission ? (
-                    <><p className="text-sm leading-6 text-muted-foreground">Start a draft to attach your work. Your teacher can review it after you turn it in.</p><Button onClick={() => start.post(`/assignments/${assignmentId}/draft`)} disabled={start.processing}>Start your work</Button></>
+                    <><p className="text-sm leading-6 text-muted-foreground">Start a draft to attach your work. Your teacher can review it after you turn it in.</p><Button type="button" onClick={() => start.post(`/assignments/${assignmentId}/draft`)} disabled={start.processing}>Start your work</Button></>
                 ) : (
                     <>
-                        {submission.file_name && submission.download_url && <a href={submission.download_url} className="flex min-h-11 items-center gap-2 rounded-lg border p-3 text-sm text-primary focus-visible:outline-2 focus-visible:outline-offset-4"><Download className="size-4 shrink-0" aria-hidden="true" /><span className="break-all">{submission.file_name}</span></a>}
+                        {submission.file_name && submission.download_url && <a href={submission.download_url} className="flex min-h-12 items-center gap-2 rounded-lg border p-3 text-sm text-primary focus-visible:outline-2 focus-visible:outline-offset-4"><Download className="size-4 shrink-0" aria-hidden="true" /><span className="break-all">{submission.file_name}</span></a>}
                         {submission.can_upload ? (
                             <>
-                                <form onSubmit={saveFile} className="space-y-3">
+                                <form onSubmit={saveFile} aria-busy={upload.processing} className="space-y-3">
                                     <FormField id="work-file" label="Attach or replace your file" error={upload.errors.file}>
                                         <Input key={inputKey} id="work-file" type="file" required accept=".pdf,.txt,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.zip" onChange={(e) => upload.setData('file', e.target.files?.[0] ?? null)} aria-invalid={!!upload.errors.file} aria-describedby={upload.errors.file ? 'work-file-help work-file-error' : 'work-file-help'} disabled={upload.processing || turnIn.processing} />
                                     </FormField>
                                     <p id="work-file-help" className="text-xs leading-5 text-muted-foreground">PDF, text, documents, slides, images, or ZIP. Maximum 20 MiB.</p>
-                                    {upload.progress && <progress className="h-2 w-full" max={100} value={upload.progress.percentage} aria-label="Upload progress" />}
-                                    <Button variant="outline" disabled={!upload.data.file || upload.processing || turnIn.processing}><Upload aria-hidden="true" />{upload.processing ? 'Saving…' : 'Save draft file'}</Button>
+                                    {upload.progress && <progress className="h-2 w-full" max={100} value={upload.progress.percentage} aria-label="Upload progress" aria-valuetext={`${upload.progress.percentage}% uploaded`} />}
+                                    <Button type="submit" variant="outline" disabled={!upload.data.file || upload.processing || turnIn.processing}><Upload aria-hidden="true" />{upload.processing ? 'Saving…' : 'Save draft file'}</Button>
                                 </form>
                                 <div className="space-y-3 border-t pt-4">
                                     <p className="text-xs leading-5 text-muted-foreground">Turning in locks this file. Save any selected replacement before you turn in.</p>
-                                    <Button disabled={!submission.file_name || !!upload.data.file || upload.processing || turnIn.processing} onClick={() => turnIn.post(`/submissions/${submission.id}/submit`, { preserveScroll: true })}><CheckCircle2 aria-hidden="true" />{turnIn.processing ? 'Turning in…' : 'Turn in'}</Button>
-                                    {errors.submission && <p role="alert" className="text-sm text-red-700">{errors.submission}</p>}
+                                    <Button type="button" disabled={!submission.file_name || !!upload.data.file || upload.processing || turnIn.processing} onClick={() => turnIn.post(`/submissions/${submission.id}/submit`, { preserveScroll: true })}><CheckCircle2 aria-hidden="true" />{turnIn.processing ? 'Turning in…' : 'Turn in'}</Button>
+                                    {errors.submission && <p role="alert" className="text-sm leading-6 text-red-700">{errors.submission}</p>}
                                 </div>
                             </>
                         ) : (
