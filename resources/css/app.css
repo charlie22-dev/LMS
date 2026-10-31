@@ -21,7 +21,7 @@
     --muted: #edf3f3;
     --muted-foreground: #536872;
     --border: #dce6e6;
-    --input: #dce6e6;
+    --input: #c6d4d8;
     --ring: #245ab5;
 }
 
@@ -43,5 +43,5 @@
     * { @apply border-border; }
     body { @apply bg-background text-foreground; }
     button:not(:disabled), summary { cursor: pointer; }
-    ::selection { background: #d2e3fc; }
+    ::selection { background: #c9e8e4; }
 }
