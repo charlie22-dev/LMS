@@ -59,7 +59,7 @@ export default function Stream({ classroom, streamItems }: Props) {
                     <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-24 size-80 rounded-full border-[44px] border-white/5" />
                     <p className="relative text-xs font-semibold uppercase tracking-[0.18em] text-[#d4f2ed]">Your learning space</p>
                     <h1 className="relative mt-5 max-w-3xl break-words text-3xl font-semibold tracking-tight sm:text-4xl">{classroom.name}</h1>
-                    {classroom.section && <p className="relative mt-2 text-emerald-50/85">{classroom.section}</p>}
+                    {classroom.section && <p className="relative mt-2 text-white/90">{classroom.section}</p>}
                     <div className="relative mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-emerald-50/85">
                         <span>{classroom.teacher.name}</span>
                         <span className="flex items-center gap-2"><Users className="size-4" aria-hidden="true" />{classroom.students_count} {classroom.students_count === 1 ? 'student' : 'students'}</span>
