@@ -56,7 +56,7 @@ export default function Stream({ classroom, streamItems }: Props) {
             <a href="#main" className="sr-only z-50 rounded bg-white p-3 focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to stream</a>
             <div id="main" className="mx-auto max-w-6xl">
                 <Link href="/" className="mb-5 inline-flex items-center gap-2 rounded text-sm text-muted-foreground hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4"><ArrowLeft className="size-4" aria-hidden="true" />All classrooms</Link>
-                <section aria-label="Classroom overview" className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#245ab5] via-[#28688e] to-[#187b78] p-7 text-white sm:p-10">
+                <section aria-label="Classroom overview" className="relative overflow-hidden rounded-2xl p-7 text-white shadow-[0_12px_28px_rgba(57,52,108,0.16)] sm:p-10" style={{ background: getClassroomTheme(classroom.id).gradient }}>
                     <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-24 size-80 rounded-full border-[44px] border-white/5" />
                     <p className="relative text-xs font-semibold uppercase tracking-[0.18em] text-[#d4f2ed]">Your learning space</p>
                     <h1 className="relative mt-5 max-w-3xl break-words text-3xl font-semibold tracking-tight sm:text-4xl">{classroom.name}</h1>
