@@ -32,7 +32,7 @@ export default function Index({ classrooms }: { classrooms: CursorPage<Classroom
             <div aria-hidden="true" className="pointer-events-none absolute right-12 top-8 hidden rotate-12 rounded-2xl bg-white/80 p-4 text-[#6954b8] shadow-[0_8px_24px_rgba(94,75,155,0.12)] sm:block"><BookOpen className="size-8" /></div>
             <div className="relative max-w-2xl">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6351aa]">Your learning space</p>
-                <h1 className="mt-3 text-[30px] font-semibold tracking-tight text-[#24343b] sm:text-4xl">My classrooms</h1>
+                <h1 className="mt-3 text-[30px] font-semibold tracking-tight text-[#292b43] sm:text-4xl">My classrooms</h1>
                 <p className="mt-3 max-w-lg text-sm leading-6 text-[#535c72]">Welcome back, {auth.user.name.split(' ')[0]}. Everything you need for your classes is right here.</p>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                     <span className="inline-flex min-h-9 items-center gap-2 rounded-full bg-white/80 px-4 text-xs font-medium text-[#48457f]"><span className="size-2 rounded-full bg-[#667d85]" />{preview ? '4 example classes' : `${classrooms.data.length} ${classrooms.data.length === 1 ? 'class' : 'classes'} on this page`}</span>
