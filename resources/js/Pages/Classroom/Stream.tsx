@@ -7,6 +7,7 @@ import { CreateAssignmentForm } from '@/components/classroom/create-assignment-f
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useClassroomStream } from '@/hooks/use-classroom-stream';
+import { getClassroomTheme } from '@/lib/classroom-theme';
 import type { Classroom, CursorPage, StreamItem } from '@/types/classroom';
 
 interface Props { classroom: Classroom; streamItems: CursorPage<StreamItem> }
