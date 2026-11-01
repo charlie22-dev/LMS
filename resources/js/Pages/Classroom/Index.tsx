@@ -29,7 +29,7 @@ export default function Index({ classrooms }: { classrooms: CursorPage<Classroom
     return <AppLayout title="Classes" active="courses"><Head title="My classrooms" /><div className="mx-auto max-w-[1300px]"><div className="relative mb-8 overflow-hidden rounded-[24px] border border-[#e8e5f4] bg-gradient-to-br from-[#f0edff] via-[#f0f8ff] to-[#e7f8ef] px-6 py-7 sm:px-9 sm:py-9">
             <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-16 size-52 rounded-full border-[32px] border-[#d6ccff]/55 sm:right-8" />
             <div aria-hidden="true" className="pointer-events-none absolute bottom-[-65px] right-24 size-36 rounded-full bg-[#aee9d4]/40" />
-            <div aria-hidden="true" className="pointer-events-none absolute right-12 top-8 hidden rotate-12 rounded-2xl bg-white/80 p-4 text-[#536872] shadow-[0_8px_24px_rgba(94,75,155,0.12)] sm:block"><BookOpen className="size-8" /></div>
+            <div aria-hidden="true" className="pointer-events-none absolute right-12 top-8 hidden rotate-12 rounded-2xl bg-white/80 p-4 text-[#6954b8] shadow-[0_8px_24px_rgba(94,75,155,0.12)] sm:block"><BookOpen className="size-8" /></div>
             <div className="relative max-w-2xl">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#536872]">Your learning space</p>
                 <h1 className="mt-3 text-[30px] font-semibold tracking-tight text-[#24343b] sm:text-4xl">My classrooms</h1>
