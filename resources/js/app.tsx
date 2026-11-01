@@ -16,5 +16,5 @@ void createInertiaApp({
     setup({ el, App, props }) {
         createRoot(el).render(<FirebaseAuthProvider><MotionConfig reducedMotion="user"><App {...props} /><Toaster richColors position="top-right" /></MotionConfig></FirebaseAuthProvider>);
     },
-    progress: { color: '#245ab5' },
+    progress: { color: '#4844aa' },
 });
