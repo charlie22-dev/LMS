@@ -15,7 +15,7 @@ export function AssignmentCard({ item }: { item: StreamItem }) {
                         <p className="text-sm text-muted-foreground"><span className="font-medium text-foreground">{item.author.name}</span> posted an assignment</p>
                         <time className="mt-1 block text-xs text-muted-foreground" dateTime={item.created_at}>{dateFormat.format(new Date(item.created_at))}</time>
                     </div>
-                    <span className="shrink-0 rounded-md bg-muted px-2 py-1 text-xs font-medium tabular-nums">{item.points} pts</span>
+                    <span className="shrink-0 rounded-full bg-[#fff1df] px-3 py-1 text-xs font-medium tabular-nums text-[#89500e]">{item.points} pts</span>
                 </div>
             </CardHeader>
             <CardContent>
