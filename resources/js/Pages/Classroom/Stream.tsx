@@ -27,7 +27,7 @@ function InviteCode({ code }: { code: string }) {
             <CardHeader><h2 className="text-sm font-semibold">Class code</h2></CardHeader>
             <CardContent>
                 <div className="flex items-center justify-between gap-2">
-                    <code className="select-all text-xl font-semibold tracking-[0.15em] text-primary">{code}</code>
+                    <code className="select-all break-all text-lg font-semibold tracking-[0.12em] sm:text-xl sm:tracking-[0.15em] text-primary">{code}</code>
                     <Button variant="ghost" size="icon" onClick={() => void copy()} aria-label="Copy class code"><Copy aria-hidden="true" /></Button>
                 </div>
                 <p className="mt-3 text-xs leading-5 text-muted-foreground">Share this code with students to invite them to your classroom.</p>
