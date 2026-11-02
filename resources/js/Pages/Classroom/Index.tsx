@@ -33,7 +33,7 @@ export default function Index({ classrooms }: { classrooms: CursorPage<Classroom
             <div className="relative max-w-2xl">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6351aa]">Your learning space</p>
                 <h1 className="mt-3 break-words text-[26px] font-semibold tracking-tight text-[#292b43] sm:text-4xl">My classrooms</h1>
-                <p className="mt-3 max-w-lg text-sm leading-6 text-[#535c72]">Welcome back, {auth.user.name.split(' ')[0]}. Everything you need for your classes is right here.</p>
+                <p className="mt-3 max-w-lg break-words text-sm leading-6 text-[#535c72]">Welcome back, {auth.user.name.split(' ')[0]}. Everything you need for your classes is right here.</p>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                     <span className="inline-flex min-h-9 items-center gap-2 rounded-full bg-white/80 px-4 text-xs font-medium text-[#48457f]"><span className="size-2 rounded-full bg-[#42a887]" />{preview ? '4 example classes' : `${classrooms.data.length} ${classrooms.data.length === 1 ? 'class' : 'classes'} on this page`}</span>
                     <button type="button" onClick={() => setPreview(!preview)} className="min-h-10 rounded-full border border-[#d3cbf0] bg-white/70 px-4 text-sm font-medium text-[#4e4199] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4844aa]">{preview ? 'Show my classrooms' : 'Preview class cards'}</button>
