@@ -32,7 +32,7 @@ export default function Show({ assignment, permissions, submission, submissions 
                     <Card className="min-w-0">
                         <CardHeader><ClipboardList className="mb-4 size-7 text-primary" aria-hidden="true" /><h1 className="break-words text-2xl font-semibold tracking-tight sm:text-3xl">{assignment.title}</h1><p className="mt-3 text-sm text-muted-foreground">{assignment.author.name} · {assignment.points} points</p></CardHeader>
                         <CardContent>
-                            <p className="mb-6 flex items-center gap-2 border-b pb-5 text-sm text-muted-foreground"><CalendarDays className="size-4 shrink-0" aria-hidden="true" />{assignment.due_at ? <>Due <time dateTime={assignment.due_at}>{new Date(assignment.due_at).toLocaleString()}</time></> : 'No due date'}</p>
+                            <p className="mb-6 flex flex-wrap items-center gap-2 border-b pb-5 text-sm leading-6 text-muted-foreground"><CalendarDays className="size-4 shrink-0" aria-hidden="true" />{assignment.due_at ? <>Due <time dateTime={assignment.due_at}>{new Date(assignment.due_at).toLocaleString()}</time></> : 'No due date'}</p>
                             <h2 className="text-sm font-semibold">Instructions</h2>
                             <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-7 text-muted-foreground">{assignment.instructions || 'No additional instructions. Refer to your teacher for details.'}</p>
                         </CardContent>
