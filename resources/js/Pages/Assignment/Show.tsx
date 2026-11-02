@@ -28,7 +28,7 @@ export default function Show({ assignment, permissions, submission, submissions 
             <div className="mx-auto max-w-6xl">
                 <Link href={`/classrooms/${assignment.classroom.id}/stream`} className="mb-6 inline-flex min-h-12 max-w-full items-center gap-2 break-words rounded text-sm text-primary focus-visible:outline-2 focus-visible:outline-offset-4"><ArrowLeft className="size-4" aria-hidden="true" />{assignment.classroom.name}</Link>
                 {flash?.success && <p role="status" className="mb-6 rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-primary">{flash.success}</p>}
-                <div className={permissions.submit ? 'grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px]' : ''}>
+                <div className={permissions.submit ? 'grid min-w-0 items-start gap-5 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_340px]' : ''}>
                     <Card className="min-w-0">
                         <CardHeader><ClipboardList className="mb-4 size-7 text-primary" aria-hidden="true" /><h1 className="break-words text-2xl font-semibold tracking-tight sm:text-3xl">{assignment.title}</h1><p className="mt-3 text-sm text-muted-foreground">{assignment.author.name} · {assignment.points} points</p></CardHeader>
                         <CardContent>
