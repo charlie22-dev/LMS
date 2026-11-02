@@ -71,7 +71,7 @@ export default function Stream({ classroom, streamItems }: Props) {
                     <Button variant="ghost" disabled={refreshing} onClick={refresh}><RefreshCw aria-hidden="true" />{refreshing ? 'Refreshing…' : 'Refresh'}</Button>
                 </div>
                 {flash?.success && <p role="status" className="mb-5 rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-primary">{flash.success}</p>}
-                <div className="grid items-start gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
+                <div className="grid min-w-0 items-start gap-5 sm:gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
                     <aside className="space-y-5" aria-label="Class information">
                         {classroom.invite_code && <InviteCode code={classroom.invite_code} />}
                         <Card>
