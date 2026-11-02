@@ -27,7 +27,7 @@ export function StudentWork({ assignmentId, points, submission }: { assignmentId
     return (
         <Card>
             <CardHeader>
-                <div className="flex items-center justify-between gap-3"><h2 className="font-semibold">Your work</h2><span className="rounded-md bg-muted px-2 py-1 text-xs">{submission ? (submission.status === 'graded' ? 'Awaiting return' : statusLabels[submission.status]) : 'Not started'}</span></div>
+                <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="font-semibold">Your work</h2><span className="rounded-md bg-muted px-2 py-1 text-xs">{submission ? (submission.status === 'graded' ? 'Awaiting return' : statusLabels[submission.status]) : 'Not started'}</span></div>
             </CardHeader>
             <CardContent className="space-y-5">
                 {!submission ? (
