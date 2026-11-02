@@ -30,7 +30,7 @@ export default function Show({ assignment, permissions, submission, submissions 
                 {flash?.success && <p role="status" className="mb-6 rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-primary">{flash.success}</p>}
                 <div className={permissions.submit ? 'grid min-w-0 items-start gap-5 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_340px]' : ''}>
                     <Card className="min-w-0">
-                        <CardHeader><ClipboardList className="mb-4 size-7 text-primary" aria-hidden="true" /><h1 className="break-words text-2xl font-semibold tracking-tight sm:text-3xl">{assignment.title}</h1><p className="mt-3 text-sm text-muted-foreground">{assignment.author.name} · {assignment.points} points</p></CardHeader>
+                        <CardHeader><ClipboardList className="mb-4 size-7 text-primary" aria-hidden="true" /><h1 className="break-words text-2xl font-semibold tracking-tight sm:text-3xl">{assignment.title}</h1><p className="mt-3 break-words text-sm text-muted-foreground">{assignment.author.name} · {assignment.points} points</p></CardHeader>
                         <CardContent>
                             <p className="mb-6 flex flex-wrap items-center gap-2 border-b pb-5 text-sm leading-6 text-muted-foreground"><CalendarDays className="size-4 shrink-0" aria-hidden="true" />{assignment.due_at ? <>Due <time dateTime={assignment.due_at}>{new Date(assignment.due_at).toLocaleString()}</time></> : 'No due date'}</p>
                             <h2 className="text-sm font-semibold">Instructions</h2>
