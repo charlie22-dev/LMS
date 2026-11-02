@@ -31,7 +31,7 @@ export function StudentWork({ assignmentId, points, submission }: { assignmentId
             </CardHeader>
             <CardContent className="space-y-5">
                 {!submission ? (
-                    <><p className="text-sm leading-6 text-muted-foreground">Start a draft to attach your work. Your teacher can review it after you turn it in.</p><Button type="button" onClick={() => start.post(`/assignments/${assignmentId}/draft`)} disabled={start.processing}>Start your work</Button></>
+                    <><p className="text-sm leading-6 text-muted-foreground">Start a draft to attach your work. Your teacher can review it after you turn it in.</p><Button type="button" className="w-full sm:w-auto" onClick={() => start.post(`/assignments/${assignmentId}/draft`)} disabled={start.processing}>Start your work</Button></>
                 ) : (
                     <>
                         {submission.file_name && submission.download_url && <a href={submission.download_url} className="flex min-h-12 items-center gap-2 rounded-lg border p-3 text-sm text-primary focus-visible:outline-2 focus-visible:outline-offset-4"><Download className="size-4 shrink-0" aria-hidden="true" /><span className="break-all">{submission.file_name}</span></a>}
