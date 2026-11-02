@@ -21,7 +21,7 @@ export function SubmissionReview({ submission, points, dueAt }: { submission: Re
     return (
         <Card>
             <CardHeader>
-                <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="font-semibold">{submission.student.name}</h3><span className="rounded-md bg-muted px-2 py-1 text-xs">{statusLabels[submission.status]}</span></div>
+                <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="min-w-0 break-words font-semibold">{submission.student.name}</h3><span className="rounded-md bg-muted px-2 py-1 text-xs">{statusLabels[submission.status]}</span></div>
                 {submission.submitted_at && <p className="mt-2 text-xs text-muted-foreground">Turned in <time dateTime={submission.submitted_at}>{new Date(submission.submitted_at).toLocaleString()}</time>{late ? ' · Late' : ''}</p>}
             </CardHeader>
             <CardContent className="space-y-5">
