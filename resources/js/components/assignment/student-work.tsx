@@ -43,7 +43,7 @@ export function StudentWork({ assignmentId, points, submission }: { assignmentId
                                     </FormField>
                                     <p id="work-file-help" className="text-xs leading-5 text-muted-foreground">PDF, text, documents, slides, images, or ZIP. Maximum 20 MiB.</p>
                                     {upload.progress && <progress className="h-2 w-full" max={100} value={upload.progress.percentage} aria-label="Upload progress" aria-valuetext={`${upload.progress.percentage}% uploaded`} />}
-                                    <Button type="submit" variant="outline" disabled={!upload.data.file || upload.processing || turnIn.processing}><Upload aria-hidden="true" />{upload.processing ? 'Saving…' : 'Save draft file'}</Button>
+                                    <Button type="submit" className="w-full sm:w-auto" variant="outline" disabled={!upload.data.file || upload.processing || turnIn.processing}><Upload aria-hidden="true" />{upload.processing ? 'Saving…' : 'Save draft file'}</Button>
                                 </form>
                                 <div className="space-y-3 border-t pt-4">
                                     <p className="text-xs leading-5 text-muted-foreground">Turning in locks this file. Save any selected replacement before you turn in.</p>
