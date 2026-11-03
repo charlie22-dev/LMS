@@ -30,7 +30,7 @@ test('teacher posts work, student turns it in, and the teacher returns a private
     await student.getByRole('dialog').getByRole('button', { name: 'Join class', exact: true }).click();
     await expect(student.getByRole('heading', { name: 'Workflow lab', exact: true })).toBeVisible();
 
-    await teacher.getByText('Post an assignment', { exact: true }).click();
+    await teacher.getByText('Create a post', { exact: true }).click();
     await teacher.getByLabel('Title', { exact: true }).fill('Design a safe submission workflow');
     await teacher.getByLabel('Instructions (optional)').fill('Explain how draft locking protects submitted work.');
     await teacher.getByLabel('Points', { exact: true }).fill('100');
@@ -67,9 +67,9 @@ test('teacher posts work, student turns it in, and the teacher returns a private
     await expect(student.getByLabel('Attach or replace your file')).toHaveCount(0);
 
     await student.screenshot({ path: testInfo.outputPath('returned-grade-desktop.png'), fullPage: true });
-    const downloadEvent = student.waitForEvent('download');
     await student.getByRole('link', { name: 'workflow.txt', exact: true }).click();
-    expect((await downloadEvent).suggestedFilename()).toBe('workflow.txt');
+    await expect(student.getByRole('dialog').getByText('Drafts can change. Submitted work is immutable.', { exact: true })).toBeVisible();
+    await student.getByRole('button', { name: 'Close preview' }).click();
     await teacherContext.close();
     await studentContext.close();
 });
