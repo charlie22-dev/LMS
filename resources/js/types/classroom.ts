@@ -8,7 +8,10 @@ export interface Classroom {
     invite_code: string | null;
     can_manage: boolean;
 }
+export interface PostAttachment { id: number; name: string; size: number; url: string }
 export interface StreamItem {
+    type: 'assignment' | 'material' | 'announcement';
+    attachments: PostAttachment[];
     id: number;
     title: string;
     instructions: string | null;
