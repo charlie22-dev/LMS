@@ -41,7 +41,7 @@ test('teacher can post and read a long-titled assignment on a narrow phone', asy
     await page.locator('article').filter({ has: page.getByRole('heading', { name: 'Software Architecture', exact: true }) }).getByRole('link', { name: 'Open classroom', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Software Architecture' })).toBeVisible();
     await expectNoHorizontalOverflow(page);
-    await page.getByText('Post an assignment', { exact: true }).click();
+    await page.getByText('Create a post', { exact: true }).click();
     const title = 'A detailed assignment about designing resilient and accessible classroom workflows';
     await page.getByLabel('Title', { exact: true }).fill(title);
     await page.getByLabel('Instructions (optional)').fill('Explain how students can read and submit their work from a phone.');
