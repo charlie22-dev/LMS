@@ -10,12 +10,12 @@ export function AssignmentCard({ item }: { item: StreamItem }) {
         <Card>
             <CardHeader>
                 <div className="flex items-start gap-3">
-                    <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[#eeeafe] text-[#5747aa]"><ClipboardList className="size-5" aria-hidden="true" /></span>
+                    <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[#ececec] text-[#525252]"><ClipboardList className="size-5" aria-hidden="true" /></span>
                     <div className="min-w-0 flex-1">
                         <p className="text-sm text-muted-foreground"><span className="font-medium text-foreground">{item.author.name}</span> posted an assignment</p>
                         <time className="mt-1 block text-xs text-muted-foreground" dateTime={item.created_at}>{dateFormat.format(new Date(item.created_at))}</time>
                     </div>
-                    <span className="shrink-0 rounded-full bg-[#fff1df] px-3 py-1 text-xs font-medium tabular-nums text-[#89500e]">{item.points} pts</span>
+                    <span className="shrink-0 rounded-full bg-[#f3f3f3] px-3 py-1 text-xs font-medium tabular-nums text-[#575757]">{item.points} pts</span>
                 </div>
             </CardHeader>
             <CardContent>
