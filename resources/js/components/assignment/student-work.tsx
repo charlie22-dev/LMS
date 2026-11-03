@@ -1,5 +1,6 @@
+import { FilePreview } from '@/components/ui/file-preview';
 import { useForm, usePage } from '@inertiajs/react';
-import { CheckCircle2, Download, LockKeyhole, Upload } from 'lucide-react';
+import { CheckCircle2, LockKeyhole, Upload } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -17,8 +18,9 @@ export function StudentWork({ assignmentId, points, submission }: { assignmentId
 
     function saveFile(event: FormEvent) {
         event.preventDefault();
-        if (!submission || upload.processing) return;
-        upload.post(`/submissions/${submission.id}/file`, {
+        if (upload.processing) return;
+        upload.post(submission ? `/submissions/${submission.id}/file` : `/assignments/${assignmentId}/file`, {
+            forceFormData: true,
             preserveScroll: true,
             onSuccess: () => { upload.reset(); setInputKey((key) => key + 1); },
         });
@@ -30,11 +32,12 @@ export function StudentWork({ assignmentId, points, submission }: { assignmentId
                 <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="font-semibold">Your work</h2><span className="rounded-md bg-muted px-2 py-1 text-xs">{submission ? (submission.status === 'graded' ? 'Awaiting return' : statusLabels[submission.status]) : 'Not started'}</span></div>
             </CardHeader>
             <CardContent className="space-y-5">
+                {!submission && <form onSubmit={saveFile} className="space-y-3" aria-busy={upload.processing}><FormField id="initial-work-file" label="Upload your work" error={upload.errors.file}><Input id="initial-work-file" type="file" required accept=".pdf,.txt,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.zip" onChange={(event) => upload.setData('file', event.target.files?.[0] ?? null)} aria-describedby="initial-work-help" /></FormField><p id="initial-work-help" className="text-xs leading-5 text-muted-foreground">Save a PDF, document, slides, image, text, or ZIP up to 20 MiB.</p>{upload.progress && <progress className="w-full" value={upload.progress.percentage} max={100} aria-label="Upload progress" />}<Button disabled={!upload.data.file || upload.processing}><Upload aria-hidden="true" />{upload.processing ? 'Saving...' : 'Upload work'}</Button></form>}
                 {!submission ? (
-                    <><p className="text-sm leading-6 text-muted-foreground">Start a draft to attach your work. Your teacher can review it after you turn it in.</p><Button type="button" className="w-full sm:w-auto" onClick={() => start.post(`/assignments/${assignmentId}/draft`)} disabled={start.processing}>Start your work</Button></>
+                    <><p className="text-sm leading-6 text-muted-foreground">Attach your work below to save a draft. Your teacher can review it after you turn it in.</p><Button type="button" className="w-full sm:w-auto" onClick={() => start.post(`/assignments/${assignmentId}/draft`)} disabled={start.processing}>Start your work</Button></>
                 ) : (
                     <>
-                        {submission.file_name && submission.download_url && <a href={submission.download_url} className="flex min-h-12 items-center gap-2 rounded-lg border p-3 text-sm text-primary focus-visible:outline-2 focus-visible:outline-offset-4"><Download className="size-4 shrink-0" aria-hidden="true" /><span className="break-all">{submission.file_name}</span></a>}
+                        {submission.file_name && submission.download_url && <FilePreview url={submission.download_url} name={submission.file_name} />}
                         {submission.can_upload ? (
                             <>
                                 <form onSubmit={saveFile} aria-busy={upload.processing} className="space-y-3">
