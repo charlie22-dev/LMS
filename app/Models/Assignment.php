@@ -12,7 +12,7 @@ class Assignment extends Model
 {
     protected $attributes = ['points' => 100, 'type' => 'assignment'];
 
-    protected $fillable = ['title', 'instructions', 'points', 'due_at'];
+    protected $fillable = ['title', 'instructions', 'points', 'due_at', 'type'];
 
     protected function casts(): array
     {
