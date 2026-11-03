@@ -9,10 +9,10 @@ export interface DashboardData {
 export const demoDashboard: DashboardData = {
     academicYear: '2026–27', metrics: { cgpa: 3.82, semester: '4th', credits: 72, totalCredits: 120, attendance: 94 },
     courses: [
-        { name: 'Software Architecture', code: 'CS 301', instructor: 'Alex Rivera', credits: 3, progress: 72, status: 'current', color: 'bg-indigo-50 text-indigo-600', monogram: 'SA' },
-        { name: 'Database Systems', code: 'CS 242', instructor: 'Morgan Lee', credits: 3, progress: 58, status: 'current', color: 'bg-orange-50 text-orange-600', monogram: 'DB' },
-        { name: 'Human–Computer Interaction', code: 'CS 315', instructor: 'Jamie Cruz', credits: 3, progress: 86, status: 'current', color: 'bg-violet-50 text-violet-600', monogram: 'HC' },
-        { name: 'Foundations of Computing', code: 'CS 101', instructor: 'Taylor Reyes', credits: 3, progress: 100, grade: 'A', status: 'completed', color: 'bg-emerald-50 text-emerald-600', monogram: 'FC' },
+        { name: 'Software Architecture', code: 'CS 301', instructor: 'Alex Rivera', credits: 3, progress: 72, status: 'current', color: 'bg-neutral-50 text-neutral-600', monogram: 'SA' },
+        { name: 'Database Systems', code: 'CS 242', instructor: 'Morgan Lee', credits: 3, progress: 58, status: 'current', color: 'bg-neutral-50 text-neutral-600', monogram: 'DB' },
+        { name: 'Human–Computer Interaction', code: 'CS 315', instructor: 'Jamie Cruz', credits: 3, progress: 86, status: 'current', color: 'bg-neutral-50 text-neutral-600', monogram: 'HC' },
+        { name: 'Foundations of Computing', code: 'CS 101', instructor: 'Taylor Reyes', credits: 3, progress: 100, grade: 'A', status: 'completed', color: 'bg-neutral-50 text-neutral-600', monogram: 'FC' },
     ],
     events: [{ title: 'Design systems workshop', description: 'Learning commons · 2:00 PM', month: 'NOV', day: '04', href: '/portal/exams' }, { title: 'Course registration opens', description: 'Plan ahead for next semester', month: 'NOV', day: '12', href: '/portal/registration' }],
     news: { title: 'A new space to learn together', description: 'Discover what’s new at the learning commons.', body: 'The learning commons brings study spaces and shared resources together. Explore the library to find a little inspiration for your next project.' },
