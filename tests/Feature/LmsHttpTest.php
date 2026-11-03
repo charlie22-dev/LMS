@@ -37,6 +37,20 @@ class LmsHttpTest extends TestCase
         $this->classroom->assignments()->save($assignment);
     }
 
+    public function test_classroom_search_is_case_insensitive_and_limited_to_enrolled_classes(): void
+    {
+        $otherTeacher = User::factory()->create(['role' => UserRole::Teacher]);
+        app(CreateClassroom::class)->handle($otherTeacher, 'Architecture private');
+
+        $this->actingAs($this->student)->get('/?search=ARCHITECTURE&sort=name')
+            ->assertOk()->assertInertia(fn (Assert $page) => $page
+                ->component('Classroom/Index')
+                ->has('classrooms.data', 1)
+                ->where('classrooms.data.0.name', 'Architecture')
+                ->where('classrooms.data.0.assignments_count', 1)
+                ->where('filters.sort', 'name'));
+    }
+
     public function test_login_page_renders_through_inertia_middleware(): void
     {
         $this->get(route('login'))->assertOk()
