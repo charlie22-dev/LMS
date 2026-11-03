@@ -19,6 +19,9 @@ class StoreAssignmentRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'type' => ['sometimes', 'required', 'in:assignment,material,announcement'],
+            'files' => ['nullable', 'array', 'max:5'],
+            'files.*' => ['required', 'file', 'mimes:pdf,txt,doc,docx,ppt,pptx,xls,xlsx,jpg,jpeg,png,zip', 'max:20480'],
             'title' => ['required', 'string', 'max:200'],
             'instructions' => ['nullable', 'string', 'max:20000'],
             'points' => ['required', 'integer', 'min:0', 'max:65535'],
