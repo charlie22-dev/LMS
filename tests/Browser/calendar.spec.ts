@@ -1,0 +1,31 @@
+import { expect, test } from '@playwright/test';
+import { demoPassword } from './support/environment';
+
+test('month calendar navigates and fits desktop and phone layouts', async ({ page }, testInfo) => {
+    await page.goto('/login');
+    await page.getByLabel('Email', { exact: true }).fill('student@classwork.test');
+    await page.getByLabel('Password', { exact: true }).fill(demoPassword);
+    await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'My classrooms' })).toBeVisible();
+    await page.goto('/calendar?month=2026-11');
+    await expect(page.getByRole('heading', { name: 'November 2026', exact: true })).toBeVisible();
+    await expect(page.getByRole('table', { name: 'Month calendar' }).getByRole('cell')).toHaveCount(42);
+    await page.getByRole('button', { name: 'Next month', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'December 2026', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'Previous month', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'November 2026', exact: true })).toBeVisible();
+    await page.getByLabel('Subject', { exact: true }).selectOption({ label: 'Software Architecture' });
+    await expect(page).toHaveURL(/month=2026-11/);
+    await expect(page.getByRole('heading', { name: 'November 2026', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: /^Sunday, November 1, 2026,/ }).click();
+    await expect(page.getByRole('heading', { name: 'Sunday, November 1', exact: true })).toBeVisible();
+    await page.screenshot({ path: testInfo.outputPath('calendar-desktop.png'), fullPage: true });
+    await page.setViewportSize({ width: 320, height: 568 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.getByRole('button', { name: 'Next month', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'December 2026', exact: true })).toBeVisible();
+    await page.screenshot({ path: testInfo.outputPath('calendar-mobile.png'), fullPage: true });
+    await page.getByRole('button', { name: 'Today', exact: true }).click();
+    const monthLabel = await page.evaluate(() => new Date().toLocaleDateString(undefined, { month: 'long', year: 'numeric' }));
+    await expect(page.getByRole('heading', { name: monthLabel, exact: true })).toBeVisible();
+});
