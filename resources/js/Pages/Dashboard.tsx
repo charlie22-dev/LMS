@@ -58,8 +58,8 @@ export default function Dashboard({ dashboard = demoDashboard }: { dashboard?: D
                 </Card>
                 <Card className="metric-card">
                     <CardContent className="p-5 sm:p-5">
-                        <div className="flex items-center justify-between"><span className="text-xs font-medium text-muted-foreground">Current semester</span><CalendarDays className="size-[18px] text-slate-400" aria-hidden="true" /></div>
-                        <div className="mt-4 flex items-end gap-2"><span className="text-[32px] font-semibold leading-none tracking-[-0.05em]">{dashboard.metrics.semester}</span><span className="mb-0.5 text-sm text-slate-400">semester</span></div>
+                        <div className="flex items-center justify-between"><span className="text-xs font-medium text-muted-foreground">Current semester</span><CalendarDays className="size-[18px] text-neutral-400" aria-hidden="true" /></div>
+                        <div className="mt-4 flex items-end gap-2"><span className="text-[32px] font-semibold leading-none tracking-[-0.05em]">{dashboard.metrics.semester}</span><span className="mb-0.5 text-sm text-neutral-400">semester</span></div>
                         <p className="mt-4 text-[11px] text-muted-foreground">Academic year {dashboard.academicYear}</p>
                     </CardContent>
                 </Card>
