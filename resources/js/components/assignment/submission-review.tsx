@@ -1,5 +1,5 @@
 import { useForm } from '@inertiajs/react';
-import { Download } from 'lucide-react';
+import { FilePreview } from '@/components/ui/file-preview';
 import type { FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -25,7 +25,7 @@ export function SubmissionReview({ submission, points, dueAt }: { submission: Re
                 {submission.submitted_at && <p className="mt-2 text-xs text-muted-foreground">Turned in <time dateTime={submission.submitted_at}>{new Date(submission.submitted_at).toLocaleString()}</time>{late ? ' · Late' : ''}</p>}
             </CardHeader>
             <CardContent className="space-y-5">
-                {submission.download_url && <a href={submission.download_url} className="inline-flex min-h-12 max-w-full items-center gap-2 rounded text-sm text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4"><Download className="size-4 shrink-0" aria-hidden="true" /><span className="break-all">{submission.file_name}</span></a>}
+                {submission.download_url && submission.file_name && <FilePreview url={submission.download_url} name={submission.file_name} />}
                 {submission.can_grade ? (
                     <form onSubmit={save} aria-busy={grade.processing} className="space-y-4">
                         <FormField id={`grade-${submission.id}`} label={`Grade (out of ${points})`} error={grade.errors.grade}>
