@@ -17,12 +17,12 @@ class AssignmentPolicy
 
     public function submit(User $user, Assignment $assignment): bool
     {
-        return $user->role === UserRole::Student
+        return $assignment->type === 'assignment' && $user->role === UserRole::Student
             && $assignment->classroom->students()->whereKey($user->id)->exists();
     }
 
     public function review(User $user, Assignment $assignment): bool
     {
-        return (new ClassroomPolicy)->manage($user, $assignment->classroom);
+        return $assignment->type === 'assignment' && (new ClassroomPolicy)->manage($user, $assignment->classroom);
     }
 }
