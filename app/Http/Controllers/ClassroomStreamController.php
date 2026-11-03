@@ -29,12 +29,14 @@ class ClassroomStreamController extends Controller
                 'can_manage' => Gate::allows('manage', $classroom),
             ],
             'streamItems' => fn () => $classroom->assignments()
-                ->select(['id', 'classroom_id', 'author_id', 'title', 'instructions', 'points', 'due_at', 'created_at'])
-                ->with('author:id,name')
+                ->select(['id', 'classroom_id', 'author_id', 'title', 'type', 'instructions', 'points', 'due_at', 'created_at'])
+                ->with(['author:id,name', 'attachments'])
                 ->orderByDesc('id')
                 ->cursorPaginate(20)
                 ->through(fn (Assignment $assignment): array => [
                     'id' => $assignment->id,
+                    'type' => $assignment->type,
+                    'attachments' => $assignment->attachments->map(fn ($attachment): array => $attachment->toDownloadData())->all(),
                     'title' => $assignment->title,
                     'instructions' => $assignment->instructions,
                     'points' => $assignment->points,
