@@ -14,7 +14,7 @@ void createInertiaApp({
     title: (title) => `${title} · Classwork`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.tsx`, import.meta.glob('./Pages/**/*.tsx')),
     setup({ el, App, props }) {
-        createRoot(el).render(<FirebaseAuthProvider><MotionConfig reducedMotion="user"><App {...props} /><Toaster richColors position="top-right" /></MotionConfig></FirebaseAuthProvider>);
+        createRoot(el).render(<FirebaseAuthProvider><MotionConfig reducedMotion="user"><App {...props} /><Toaster position="top-right" /></MotionConfig></FirebaseAuthProvider>);
     },
-    progress: { color: '#4844aa' },
+    progress: { color: '#4c4c4c' },
 });
