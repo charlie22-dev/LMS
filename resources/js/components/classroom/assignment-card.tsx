@@ -1,3 +1,4 @@
+import { PostAttachments } from '@/components/classroom/post-attachments';
 import { CalendarDays, ClipboardList } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -12,25 +13,27 @@ export function AssignmentCard({ item }: { item: StreamItem }) {
                 <div className="flex items-start gap-3">
                     <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[#ececec] text-[#525252]"><ClipboardList className="size-5" aria-hidden="true" /></span>
                     <div className="min-w-0 flex-1">
-                        <p className="text-sm text-muted-foreground"><span className="font-medium text-foreground">{item.author.name}</span> posted an assignment</p>
+                        <p className="text-sm text-muted-foreground"><span className="font-medium text-foreground">{item.author.name}</span> posted {item.type === 'assignment' ? 'an assignment' : item.type === 'material' ? 'materials' : 'an announcement'}</p>
                         <time className="mt-1 block text-xs text-muted-foreground" dateTime={item.created_at}>{dateFormat.format(new Date(item.created_at))}</time>
                     </div>
-                    <span className="shrink-0 rounded-full bg-[#f3f3f3] px-3 py-1 text-xs font-medium tabular-nums text-[#575757]">{item.points} pts</span>
+                    {item.type === 'assignment' && <span className="shrink-0 rounded-full bg-[#f3f3f3] px-3 py-1 text-xs font-medium tabular-nums text-[#575757]">{item.points} pts</span>}
                 </div>
             </CardHeader>
             <CardContent>
                 <h3 className="break-words text-lg font-semibold tracking-tight"><Link href={`/assignments/${item.id}`} className="rounded hover:text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">{item.title}</Link></h3>
                 {item.instructions && (
                     <details className="mt-3 text-sm">
-                        <summary className="w-fit rounded text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">Read instructions</summary>
+                        <summary className="w-fit rounded text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">{item.type === 'assignment' ? 'Read instructions' : 'Read post'}</summary>
                         <p className="mt-3 whitespace-pre-wrap break-words leading-7 text-muted-foreground">{item.instructions}</p>
                     </details>
                 )}
-                <div className="mt-5 flex items-center gap-2 border-t pt-4 text-xs text-muted-foreground">
+                <PostAttachments attachments={item.attachments} />
+                {item.type === 'assignment' && <div className="mt-5 flex items-center gap-2 border-t pt-4 text-xs text-muted-foreground">
                     <CalendarDays className="size-4" aria-hidden="true" />
                     {item.due_at ? <span>Due <time dateTime={item.due_at}>{dateFormat.format(new Date(item.due_at))}</time></span> : <span>No due date</span>}
-                </div>
-                <Link href={`/assignments/${item.id}`} className="mt-4 inline-flex min-h-10 items-center rounded text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">Open assignment</Link>
+                </div>}
+                <Link href={`/assignments/${item.id}`} className="mt-4 inline-flex min-h-10 items-center rounded text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">{item.type === 'assignment' ? 'Open assignment' : 'Open post'}</Link>
+                <Link href={`/assignments/${item.id}#class-comments`} className="mt-3 flex min-h-10 w-fit items-center gap-2 text-sm text-neutral-500 hover:text-neutral-900">Class comments</Link>
             </CardContent>
         </Card>
     );
