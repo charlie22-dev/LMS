@@ -7,22 +7,22 @@
 @source '../**/*.tsx';
 
 @theme {
-    --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 :root {
-    --background: #f8f8fc;
-    --foreground: #292d3b;
+    --background: #f8f8f8;
+    --foreground: #2d2d2d;
     --card: #ffffff;
-    --card-foreground: #292d3b;
-    --primary: #4844aa;
+    --card-foreground: #2d2d2d;
+    --primary: #171717;
     --primary-foreground: #ffffff;
-    --muted: #f1f0f9;
-    --muted-foreground: #555b6d;
-    --border: #e3e2ed;
-    --input: #c9cad9;
-    --ring: #4844aa;
+    --muted: #f1f1f1;
+    --muted-foreground: #5b5b5b;
+    --border: #e3e3e3;
+    --input: #cbcbcb;
+    --ring: #171717;
 }
 
 @theme inline {
@@ -43,5 +43,24 @@
     * { @apply border-border; }
     body { @apply bg-background text-foreground; }
     button:not(:disabled), summary { cursor: pointer; }
-    ::selection { background: #ddd6fb; }
+    ::selection { background: #dadada; }
+}
+
+/* Shared layout constraints keep long user content inside its grid track. */
+@layer base {
+    html { scrollbar-gutter: stable; }
+    body { margin: 0; min-width: 280px; }
+    #app { min-height: 100dvh; }
+    h1, h2, h3, h4, p, a, label, summary { overflow-wrap: anywhere; }
+    input, select, textarea { max-width: 100%; min-width: 0; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible, summary:focus-visible {
+        outline: 2px solid #171717;
+        outline-offset: 3px;
+    }
+    button:not(:disabled):active { scale: 0.98; }
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; }
+        button:active { scale: 1; }
+    }
 }
