@@ -29,6 +29,16 @@ class Assignment extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(ClassroomComment::class);
+    }
+
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(ClassroomAttachment::class);
+    }
+
     public function submissions(): HasMany
     {
         return $this->hasMany(Submission::class);
