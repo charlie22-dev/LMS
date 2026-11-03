@@ -99,7 +99,7 @@ export default function Dashboard({ dashboard = demoDashboard }: { dashboard?: D
                                 </div>
                             </Tabs.Content>
                         </Tabs.Root>
-                        <div className="flex items-center justify-between rounded-b-2xl border-t border-slate-100 bg-slate-50/40 px-5 py-3 sm:px-6"><p className="text-[11px] text-slate-400">A little consistency goes a long way.</p><Sparkles className="size-3.5 text-slate-400" aria-hidden="true" /></div>
+                        <div className="flex items-center justify-between rounded-b-2xl border-t border-neutral-100 bg-neutral-50/40 px-5 py-3 sm:px-6"><p className="text-[11px] text-neutral-400">A little consistency goes a long way.</p><Sparkles className="size-3.5 text-neutral-400" aria-hidden="true" /></div>
                     </Card>
 
                     <div className="grid gap-6 lg:grid-cols-2">
