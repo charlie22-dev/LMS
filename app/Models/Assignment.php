@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Assignment extends Model
 {
-    protected $attributes = ['points' => 100];
+    protected $attributes = ['points' => 100, 'type' => 'assignment'];
 
     protected $fillable = ['title', 'instructions', 'points', 'due_at'];
 
