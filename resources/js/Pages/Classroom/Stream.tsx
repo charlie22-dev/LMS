@@ -56,7 +56,7 @@ export default function Stream({ classroom, streamItems }: Props) {
             <a href="#main" className="sr-only z-50 rounded bg-white p-3 focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to stream</a>
             <div id="main" className="mx-auto max-w-6xl">
                 <Link href="/" className="mb-5 inline-flex min-h-12 max-w-full items-center gap-2 rounded text-sm text-muted-foreground hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4"><ArrowLeft className="size-4" aria-hidden="true" />All classrooms</Link>
-                <section aria-label="Classroom overview" className="relative overflow-hidden rounded-2xl p-5 text-white shadow-[0_12px_28px_rgba(57,52,108,0.16)] sm:p-10" style={{ background: getClassroomTheme(classroom.id).gradient }}>
+                <section aria-label="Classroom overview" className="relative overflow-hidden rounded-2xl p-5 text-white shadow-[0_12px_28px_rgba(57,57,57,0.16)] sm:p-10" style={{ background: getClassroomTheme(classroom.id).gradient }}>
                     <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-24 size-80 rounded-full border-[44px] border-white/5" />
                     <p className="relative text-xs font-semibold uppercase tracking-[0.18em] text-white/90">Your learning space</p>
                     <h1 className="relative mt-5 max-w-3xl break-words text-3xl font-semibold tracking-tight sm:text-4xl">{classroom.name}</h1>
@@ -71,7 +71,7 @@ export default function Stream({ classroom, streamItems }: Props) {
                     <Button variant="ghost" disabled={refreshing} onClick={refresh}><RefreshCw aria-hidden="true" />{refreshing ? 'Refreshing…' : 'Refresh'}</Button>
                 </div>
                 {flash?.success && <p role="status" className="mb-5 rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-primary">{flash.success}</p>}
-                <div className="grid min-w-0 items-start gap-5 sm:gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
+                <div className="grid min-w-0 items-start gap-5 sm:gap-6 xl:grid-cols-[240px_minmax(0,1fr)]">
                     <aside className="space-y-5" aria-label="Class information">
                         {classroom.invite_code && <InviteCode code={classroom.invite_code} />}
                         <Card>
