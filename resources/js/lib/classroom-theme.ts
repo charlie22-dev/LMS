@@ -1,11 +1,11 @@
 // A classroom keeps the same color wherever it appears, regardless of pagination.
 const themes = [
-    { gradient: 'linear-gradient(130deg, #3449ae 0%, #6a42ae 100%)', accent: '#4b41a8', soft: '#eeebff', decoration: '#c6b7ff' },
-    { gradient: 'linear-gradient(130deg, #096c72 0%, #08745e 100%)', accent: '#086d67', soft: '#def6ee', decoration: '#8ce1c3' },
-    { gradient: 'linear-gradient(130deg, #a84032 0%, #a04c18 100%)', accent: '#a13e2c', soft: '#fff0e5', decoration: '#ffcc9c' },
-    { gradient: 'linear-gradient(130deg, #773493 0%, #a43b78 100%)', accent: '#8b327b', soft: '#fae9f5', decoration: '#ffb9dc' },
-    { gradient: 'linear-gradient(130deg, #185995 0%, #176f91 100%)', accent: '#185a90', soft: '#e4f1ff', decoration: '#a0d9ff' },
-    { gradient: 'linear-gradient(130deg, #9c3c59 0%, #a23f3e 100%)', accent: '#9d3c57', soft: '#ffebee', decoration: '#ffb9b3' },
+    { gradient: 'linear-gradient(130deg, #4c4c4c 0%, #525252 100%)', accent: '#4b4b4b', soft: '#ededed', decoration: '#bfbfbf' },
+    { gradient: 'linear-gradient(130deg, #575757 0%, #5b5b5b 100%)', accent: '#575757', soft: '#f0f0f0', decoration: '#cdcdcd' },
+    { gradient: 'linear-gradient(130deg, #555555 0%, #5a5a5a 100%)', accent: '#525252', soft: '#f2f2f2', decoration: '#d3d3d3' },
+    { gradient: 'linear-gradient(130deg, #494949 0%, #565656 100%)', accent: '#4a4a4a', soft: '#ededed', decoration: '#cacaca' },
+    { gradient: 'linear-gradient(130deg, #505050 0%, #5f5f5f 100%)', accent: '#505050', soft: '#efefef', decoration: '#d0d0d0' },
+    { gradient: 'linear-gradient(130deg, #535353 0%, #545454 100%)', accent: '#535353', soft: '#efefef', decoration: '#c7c7c7' },
 ] as const;
 
 export function getClassroomTheme(id: number) {
