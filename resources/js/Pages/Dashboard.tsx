@@ -72,8 +72,8 @@ export default function Dashboard({ dashboard = demoDashboard }: { dashboard?: D
                 </Card>
                 <Card className="metric-card">
                     <CardContent className="p-5 sm:p-5">
-                        <div className="flex items-center justify-between"><span className="text-xs font-medium text-muted-foreground">Attendance</span><Check className="size-[18px] text-slate-400" aria-hidden="true" /></div>
-                        <div className="mt-3 flex items-center justify-between gap-3"><div><p className="text-[32px] font-semibold leading-none tracking-[-0.05em] tabular-nums">{dashboard.metrics.attendance}<span className="text-xl">%</span></p><p className="mt-3 text-[11px] font-medium text-emerald-700">You’re doing great</p></div><ProgressRing value={dashboard.metrics.attendance} label="Attendance" /></div>
+                        <div className="flex items-center justify-between"><span className="text-xs font-medium text-muted-foreground">Attendance</span><Check className="size-[18px] text-neutral-400" aria-hidden="true" /></div>
+                        <div className="mt-3 flex items-center justify-between gap-3"><div><p className="text-[32px] font-semibold leading-none tracking-[-0.05em] tabular-nums">{dashboard.metrics.attendance}<span className="text-xl">%</span></p><p className="mt-3 text-[11px] font-medium text-neutral-700">You’re doing great</p></div><ProgressRing value={dashboard.metrics.attendance} label="Attendance" /></div>
                     </CardContent>
                 </Card>
             </div>
