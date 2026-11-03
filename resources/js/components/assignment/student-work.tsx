@@ -48,7 +48,7 @@ export function StudentWork({ assignmentId, points, submission }: { assignmentId
                                 <div className="space-y-3 border-t pt-4">
                                     <p className="text-xs leading-5 text-muted-foreground">Turning in locks this file. Save any selected replacement before you turn in.</p>
                                     <Button type="button" className="w-full sm:w-auto" disabled={!submission.file_name || !!upload.data.file || upload.processing || turnIn.processing} onClick={() => turnIn.post(`/submissions/${submission.id}/submit`, { preserveScroll: true })}><CheckCircle2 aria-hidden="true" />{turnIn.processing ? 'Turning in…' : 'Turn in'}</Button>
-                                    {errors.submission && <p role="alert" className="text-sm leading-6 text-red-700">{errors.submission}</p>}
+                                    {errors.submission && <p role="alert" className="text-sm leading-6 text-neutral-700">{errors.submission}</p>}
                                 </div>
                             </>
                         ) : (
