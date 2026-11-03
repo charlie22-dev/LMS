@@ -89,8 +89,8 @@ export default function Dashboard({ dashboard = demoDashboard }: { dashboard?: D
                                 </Tabs.List>
                             </LayoutGroup>
                             <Tabs.Content value={courseTab} className="outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary">
-                                <div className="mt-5 hidden grid-cols-[minmax(0,1fr)_64px_108px] gap-4 border-y border-slate-100 bg-slate-50/70 px-6 py-2.5 text-[10px] font-semibold uppercase tracking-[0.09em] text-slate-400 sm:grid"><span>Course details</span><span>Credits</span><span>Progress</span></div>
-                                <div className="divide-y divide-slate-100">
+                                <div className="mt-5 hidden grid-cols-[minmax(0,1fr)_64px_108px] gap-4 border-y border-neutral-100 bg-neutral-50/70 px-6 py-2.5 text-[10px] font-semibold uppercase tracking-[0.09em] text-neutral-400 sm:grid"><span>Course details</span><span>Credits</span><span>Progress</span></div>
+                                <div className="divide-y divide-neutral-100">
                                     {courses.map((course) => <motion.div key={course.code} layout={!reduceMotion && !keyboardTab ? 'position' : false} initial={false} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 sm:grid-cols-[minmax(0,1fr)_64px_108px] sm:px-6">
                                         <div className="flex min-w-0 items-center gap-3"><span className={cn('flex size-10 shrink-0 items-center justify-center rounded-xl text-xs font-semibold', course.color)}>{course.monogram}</span><div className="min-w-0"><Link href="/" className="block truncate text-[13px] font-semibold text-slate-700 hover:text-primary">{course.name}</Link><p className="mt-1 text-[11px] text-muted-foreground">{course.code}<span className="mx-1.5 text-slate-300">·</span>{course.instructor}</p></div></div>
                                         <span className="hidden text-xs font-medium text-slate-500 sm:block">{course.credits}.0</span>
