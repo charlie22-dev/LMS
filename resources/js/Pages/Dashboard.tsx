@@ -104,7 +104,7 @@ export default function Dashboard({ dashboard = demoDashboard }: { dashboard?: D
 
                     <div className="grid gap-6 lg:grid-cols-2">
                         <Card>
-                            <CardHeader className="flex items-center justify-between pb-3"><h2 className="text-[15px] font-semibold tracking-tight">Coming up next</h2><CalendarDays className="size-4 text-slate-400" aria-hidden="true" /></CardHeader>
+                            <CardHeader className="flex items-center justify-between pb-3"><h2 className="text-[15px] font-semibold tracking-tight">Coming up next</h2><CalendarDays className="size-4 text-neutral-400" aria-hidden="true" /></CardHeader>
                             <CardContent className="space-y-1">
                                 {dashboard.events.map((event) => <Link key={event.title} href={event.href} className="-mx-2 flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-primary"><div className="flex w-11 shrink-0 flex-col items-center rounded-lg border border-slate-100 bg-slate-50 py-1.5"><span className="text-[9px] font-semibold uppercase text-slate-400">{event.month}</span><span className="text-lg font-semibold leading-6 tracking-tight">{event.day}</span></div><div className="min-w-0 flex-1"><p className="text-xs font-semibold leading-5 text-slate-700">{event.title}</p><p className="mt-1 text-[11px] leading-5 text-slate-400">{event.description}</p></div><ArrowUpRight className="mt-1 size-3.5 text-slate-400" aria-hidden="true" /></Link>)}
                             </CardContent>
