@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\ClassroomAttachmentController;
+use App\Http\Controllers\ClassroomCommentController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ClassroomIndexController;
 use App\Http\Controllers\ClassroomStreamController;
@@ -33,6 +35,10 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/classrooms/{classroom}/stream', [ClassroomStreamController::class, 'index'])->name('classrooms.stream');
     Route::post('/classrooms/join', [EnrollmentController::class, 'join'])->middleware('throttle:enrollment')->name('classrooms.join');
     Route::post('/classrooms/{classroom}/assignments', [AssignmentController::class, 'store'])->middleware('throttle:30,1')->name('assignments.store');
+    Route::get('/classroom-attachments/{attachment}', [ClassroomAttachmentController::class, 'download'])->name('classroom-attachments.download');
+    Route::post('/assignments/{assignment}/file', [SubmissionFileController::class, 'startAndStore'])->middleware('throttle:30,1')->name('submissions.start-file');
+    Route::post('/assignments/{assignment}/comments', [ClassroomCommentController::class, 'store'])->middleware('throttle:30,1')->name('comments.store');
+    Route::delete('/comments/{comment}', [ClassroomCommentController::class, 'destroy'])->middleware('throttle:30,1')->name('comments.destroy');
     Route::get('/assignments/{assignment}', [AssignmentController::class, 'show'])->name('assignments.show');
     Route::post('/assignments/{assignment}/draft', [SubmissionWorkflowController::class, 'draft'])->middleware('throttle:30,1')->name('submissions.draft');
     Route::post('/submissions/{submission}/submit', [SubmissionWorkflowController::class, 'submit'])->middleware('throttle:30,1')->name('submissions.submit');
