@@ -51,9 +51,9 @@ export default function Dashboard({ dashboard = demoDashboard }: { dashboard?: D
             <div className="mb-7 grid gap-4 sm:grid-cols-2 2xl:gap-5 xl:grid-cols-4">
                 <Card className="metric-card">
                     <CardContent className="p-5 sm:p-5">
-                        <div className="flex items-center justify-between"><span className="text-xs font-medium text-muted-foreground">Current CGPA</span><GraduationCap className="size-[18px] text-slate-400" aria-hidden="true" /></div>
-                        <div className="mt-4 flex items-end gap-2"><span className="text-[32px] font-semibold leading-none tracking-[-0.05em] tabular-nums">{dashboard.metrics.cgpa.toFixed(2)}</span><span className="mb-0.5 text-sm text-slate-400">/ 4.00</span></div>
-                        <p className="mt-4 flex items-center gap-1.5 text-[11px] text-muted-foreground"><TrendingUp className="size-3.5 text-emerald-600" aria-hidden="true" /><span className="font-medium text-emerald-700">+0.12</span> from last semester</p>
+                        <div className="flex items-center justify-between"><span className="text-xs font-medium text-muted-foreground">Current CGPA</span><GraduationCap className="size-[18px] text-neutral-400" aria-hidden="true" /></div>
+                        <div className="mt-4 flex items-end gap-2"><span className="text-[32px] font-semibold leading-none tracking-[-0.05em] tabular-nums">{dashboard.metrics.cgpa.toFixed(2)}</span><span className="mb-0.5 text-sm text-neutral-400">/ 4.00</span></div>
+                        <p className="mt-4 flex items-center gap-1.5 text-[11px] text-muted-foreground"><TrendingUp className="size-3.5 text-neutral-600" aria-hidden="true" /><span className="font-medium text-neutral-700">+0.12</span> from last semester</p>
                     </CardContent>
                 </Card>
                 <Card className="metric-card">
