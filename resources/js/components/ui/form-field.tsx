@@ -5,7 +5,7 @@ export function FormField({ id, label, error, children }: { id: string; label: s
         <div className="space-y-2">
             <label htmlFor={id} className="block text-sm font-medium text-foreground">{label}</label>
             {children}
-            {error && <p id={`${id}-error`} role="alert" className="text-sm text-red-700">{error}</p>}
+            {error && <p id={`${id}-error`} role="alert" className="text-sm text-neutral-700">{error}</p>}
         </div>
     );
 }
