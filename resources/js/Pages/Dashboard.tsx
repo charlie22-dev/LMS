@@ -41,8 +41,8 @@ export default function Dashboard({ dashboard = demoDashboard }: { dashboard?: D
             <Head title="Dashboard" />
             <div className="mb-8 flex flex-wrap items-end justify-between gap-5">
                 <div>
-                    <div className="mb-2 flex items-center gap-2 text-xs font-medium text-muted-foreground"><span className="size-1.5 rounded-full bg-emerald-500" />YOUR LEARNING, AT A GLANCE <Badge tone="indigo">Sample data</Badge></div>
-                    <h1 className="text-[28px] font-semibold tracking-[-0.045em] text-slate-900 sm:text-[32px]">A little progress, every day.</h1>
+                    <div className="mb-2 flex items-center gap-2 text-xs font-medium text-muted-foreground"><span className="size-1.5 rounded-full bg-neutral-500" />YOUR LEARNING, AT A GLANCE <Badge tone="indigo">Sample data</Badge></div>
+                    <h1 className="text-[28px] font-semibold tracking-[-0.045em] text-neutral-900 sm:text-[32px]">A little progress, every day.</h1>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">Welcome back, {firstName}. Here’s what’s happening in your learning world.</p>
                 </div>
                 <Button variant="outline" onClick={exportSummary}><ArrowDownToLine aria-hidden="true" />Download summary</Button>
